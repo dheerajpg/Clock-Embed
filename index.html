@@ -175,9 +175,33 @@
         .dark-mode .colon {
             color: #999999;
         }
+
+        .timezone-select {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            color: #333333;
+        }
     </style>
 </head>
 <body>
+    <div class="timezone-select">
+    <label for="timezone"></label>
+    <select id="timezone">
+        <option value="America/New_York">United States</option>
+        <option value="Europe/London">United Kingdom</option>
+        <option value="Asia/Tokyo">Japan</option>
+        <option value="Asia/Kolkata">India</option>
+        <option value="Europe/Paris">France</option>
+        <option value="Europe/Berlin">Germany</option>
+     	// add more if you want
+       
+    </select>
+</div>
+
+
     <div class="toggle-switch">
         <span class="toggle-switch-text"></span>
         <label class="switch">
@@ -191,10 +215,10 @@
             <div class="card">
                 <div class="flip">
                     <div class="side front">
-                        <span id="hours-tens">0</span>
+                        <span id="hours-tens"></span>
                     </div>
                     <div class="side back">
-                        <span id="hours-tens-back">0</span>
+                        <span id="hours-tens-back"></span>
                     </div>
                 </div>
             </div>
@@ -203,10 +227,10 @@
             <div class="card">
                 <div class="flip">
                     <div class="side front">
-                        <span id="hours-ones">0</span>
+                        <span id="hours-ones"></span>
                     </div>
                     <div class="side back">
-                        <span id="hours-ones-back">0</span>
+                        <span id="hours-ones-back"></span>
                     </div>
                 </div>
             </div>
@@ -271,24 +295,36 @@
             if (this.checked) {
                 flipClock.classList.add('dark-mode');
                 document.body.style.backgroundColor = '#333333';
+                document.querySelector('.flip-clock').style.color = '#ffffff';
+                document.querySelector('.colon').style.color = '#999999';
+                document.querySelectorAll('.digit .card .flip .side.back span').forEach(function(element) {
+                    element.style.color = '#999999';
+                });
             } else {
                 flipClock.classList.remove('dark-mode');
                 document.body.style.backgroundColor = '#f2f2f2';
+                document.querySelector('.flip-clock').style.color = '#333333';
+                document.querySelector('.colon').style.color = '#999999';
+                document.querySelectorAll('.digit .card .flip .side.back span').forEach(function(element) {
+                    element.style.color = '#999999';
+                });
             }
         });
 
         function updateClock() {
             var currentTime = new Date();
-            var hours = currentTime.getHours();
-            var minutes = currentTime.getMinutes();
-            var seconds = currentTime.getSeconds();
+            var timezone = document.getElementById('timezone').value;
+            var options = { timeZone: timezone, hour12: false };
+            var hours = currentTime.toLocaleTimeString('en-US', { hour: '2-digit', ...options });
+            var minutes = currentTime.toLocaleTimeString('en-US', { minute: '2-digit', ...options });
+            var seconds = currentTime.toLocaleTimeString('en-US', { second: '2-digit', ...options });
 
-            document.getElementById('hours-tens').textContent = Math.floor(hours / 10);
-            document.getElementById('hours-ones').textContent = hours % 10;
-            document.getElementById('minutes-tens').textContent = Math.floor(minutes / 10);
-            document.getElementById('minutes-ones').textContent = minutes % 10;
-            document.getElementById('seconds-tens').textContent = Math.floor(seconds / 10);
-            document.getElementById('seconds-ones').textContent = seconds % 10;
+            document.getElementById('hours-tens').textContent = hours[0];
+            document.getElementById('hours-ones').textContent = hours[1];
+            document.getElementById('minutes-tens').textContent = minutes[0];
+            document.getElementById('minutes-ones').textContent = minutes[1];
+            document.getElementById('seconds-tens').textContent = seconds[0];
+            document.getElementById('seconds-ones').textContent = seconds[1];
         }
 
         setInterval(updateClock, 1000);
