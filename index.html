@@ -8,23 +8,69 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            transition: background-color 0.3s ease;
+        }
+
+        .toggle-switch {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            color: #333333;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        .toggle-switch-text {
+            margin-right: 10px;
+        }
+
+        .toggle-switch input[type="checkbox"] {
+            appearance: none;
+            width: 40px;
+            height: 20px;
+            background-color: #dddddd;
+            border-radius: 10px;
+            position: relative;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .toggle-switch input[type="checkbox"]:before {
+            content: "";
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-switch input[type="checkbox"]:checked {
+            background-color: #000000;
+        }
+
+        .toggle-switch input[type="checkbox"]:checked:before {
+            transform: translateX(20px);
         }
 
         .flip-clock {
             display: flex;
             align-items: center;
             font-family: Arial, sans-serif;
+            font-size: 64px;
             font-weight: bold;
             color: #333333;
         }
 
         .digit {
             position: relative;
-            width: 20vw;
-            max-width: 120px;
-            height: calc(30vw + 30px);
-            max-height: 180px;
-            margin: 0 5px;
+            width: 80px;
+            height: 120px;
+            margin: 0 10px;
             background-color: #f1f1f1;
             border-radius: 5px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -68,8 +114,7 @@
         }
 
         .digit .card .flip .side span {
-            font-size: 30vw;
-            max-font-size: 100px;
+            font-size: 100px;
             color: #333333;
         }
 
@@ -78,33 +123,69 @@
         }
 
         .colon {
-            font-size: 20vw;
-            max-font-size: 80px;
+            font-size: 80px;
             font-weight: normal;
             margin: 0 5px;
             color: #999999;
         }
 
-        @media (max-width: 768px) {
-            .digit {
-                width: 30vw;
-                height: calc(45vw + 45px);
-                max-height: 270px;
-            }
+        /* Dark mode styles */
+        .dark-mode {
+            background-color: #333333;
+            color: #ffffff;
+        }
 
-            .digit .card .flip .side span {
-                font-size: 45vw;
-                max-font-size: 150px;
-            }
+        .dark-mode .toggle-switch {
+            color: #ffffff;
+        }
 
-            .colon {
-                font-size: 30vw;
-                max-font-size: 120px;
-            }
+        .dark-mode .toggle-switch input[type="checkbox"] {
+            background-color: #dddddd;
+        }
+
+        .dark-mode .toggle-switch input[type="checkbox"]:checked {
+            background-color: #008080;
+        }
+
+        .dark-mode .toggle-switch input[type="checkbox"]:before {
+            background-color: #ffffff;
+        }
+
+        .dark-mode .flip-clock {
+            color: #ffffff;
+        }
+
+        .dark-mode .digit {
+            background-color: #222222;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .dark-mode .digit .card .flip .side.front {
+            background-color: #222222;
+        }
+
+        .dark-mode .digit .card .flip .side.back {
+            background-color: #222222;
+        }
+
+        .dark-mode .digit .card .flip .side span {
+            color: #ffffff;
+        }
+
+        .dark-mode .colon {
+            color: #999999;
         }
     </style>
 </head>
 <body>
+    <div class="toggle-switch">
+        <span class="toggle-switch-text"></span>
+        <label class="switch">
+            <input id="darkModeToggle" type="checkbox">
+            <span class="slider"></span>
+        </label>
+    </div>
+
     <div class="flip-clock">
         <div class="digit">
             <div class="card">
@@ -183,6 +264,19 @@
     </div>
 
     <script>
+        var darkModeToggle = document.getElementById('darkModeToggle');
+        var flipClock = document.querySelector('.flip-clock');
+
+        darkModeToggle.addEventListener('change', function() {
+            if (this.checked) {
+                flipClock.classList.add('dark-mode');
+                document.body.style.backgroundColor = '#333333';
+            } else {
+                flipClock.classList.remove('dark-mode');
+                document.body.style.backgroundColor = '#f2f2f2';
+            }
+        });
+
         function updateClock() {
             var currentTime = new Date();
             var hours = currentTime.getHours();
