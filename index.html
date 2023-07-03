@@ -11,52 +11,7 @@
             transition: background-color 0.3s ease;
         }
 
-        .toggle-switch {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            display: flex;
-            align-items: center;
-            color: #333333;
-            font-family: Arial, sans-serif;
-            font-size: 16px;
-        }
-
-        .toggle-switch-text {
-            margin-right: 10px;
-        }
-
-        .toggle-switch input[type="checkbox"] {
-            appearance: none;
-            width: 40px;
-            height: 20px;
-            background-color: #dddddd;
-            border-radius: 10px;
-            position: relative;
-            outline: none;
-            cursor: pointer;
-        }
-
-        .toggle-switch input[type="checkbox"]:before {
-            content: "";
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            width: 16px;
-            height: 16px;
-            background-color: #ffffff;
-            border-radius: 50%;
-            transition: transform 0.3s ease;
-        }
-
-        .toggle-switch input[type="checkbox"]:checked {
-            background-color: #000000;
-        }
-
-        .toggle-switch input[type="checkbox"]:checked:before {
-            transform: translateX(20px);
-        }
-
+        /* Default light mode styles */
         .flip-clock {
             display: flex;
             align-items: center;
@@ -64,6 +19,18 @@
             font-size: 64px;
             font-weight: bold;
             color: #333333;
+        }
+
+        /* Dark mode styles */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #333333;
+                color: #ffffff;
+            }
+
+            .flip-clock {
+                color: #ffffff;
+            }
         }
 
         .digit {
@@ -128,53 +95,7 @@
             margin: 0 5px;
             color: #999999;
         }
-
-        /* Dark mode styles */
-        .dark-mode {
-            background-color: #333333;
-            color: #ffffff;
-        }
-
-        .dark-mode .toggle-switch {
-            color: #ffffff;
-        }
-
-        .dark-mode .toggle-switch input[type="checkbox"] {
-            background-color: #dddddd;
-        }
-
-        .dark-mode .toggle-switch input[type="checkbox"]:checked {
-            background-color: #008080;
-        }
-
-        .dark-mode .toggle-switch input[type="checkbox"]:before {
-            background-color: #ffffff;
-        }
-
-        .dark-mode .flip-clock {
-            color: #ffffff;
-        }
-
-        .dark-mode .digit {
-            background-color: #222222;
-            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
-        }
-
-        .dark-mode .digit .card .flip .side.front {
-            background-color: #222222;
-        }
-
-        .dark-mode .digit .card .flip .side.back {
-            background-color: #222222;
-        }
-
-        .dark-mode .digit .card .flip .side span {
-            color: #ffffff;
-        }
-
-        .dark-mode .colon {
-            color: #999999;
-        }
+        /* Other styles... */
 
         .timezone-select {
             position: absolute;
@@ -198,14 +119,6 @@
             <option value="Europe/Berlin">Germany</option>
             //add more time zones if you want
         </select>
-    </div>
-
-    <div class="toggle-switch">
-        <span class="toggle-switch-text"></span>
-        <label class="switch">
-            <input id="darkModeToggle" type="checkbox">
-            <span class="slider"></span>
-        </label>
     </div>
 
     <div class="flip-clock">
@@ -285,8 +198,8 @@
         </div>
     </div>
 
+
     <script>
-        var darkModeToggle = document.getElementById('darkModeToggle');
         var flipClock = document.querySelector('.flip-clock');
         var timezoneSelect = document.getElementById('timezone');
 
@@ -314,19 +227,6 @@
             document.getElementById('seconds-ones').textContent = seconds % 10 || '0';
         }
 
-        // Event listener for dark mode toggle
-        darkModeToggle.addEventListener('change', function() {
-            if (this.checked) {
-                flipClock.classList.add('dark-mode');
-                document.body.style.backgroundColor = '#333333';
-                localStorage.setItem('darkMode', 'true');
-            } else {
-                flipClock.classList.remove('dark-mode');
-                document.body.style.backgroundColor = '#f2f2f2';
-                localStorage.setItem('darkMode', 'false');
-            }
-        });
-
         // Event listener for timezone select
         timezoneSelect.addEventListener('change', function() {
             var selectedTimezone = timezoneSelect.value;
@@ -334,17 +234,11 @@
             updateClock(selectedTimezone);
         });
 
-        // Load the saved timezone and dark mode state from local storage
+        // Load the saved timezone from local storage
         window.addEventListener('load', function() {
             var selectedTimezone = localStorage.getItem('selectedTimezone');
-            var darkMode = localStorage.getItem('darkMode');
             if (selectedTimezone) {
                 timezoneSelect.value = selectedTimezone;
-            }
-            if (darkMode === 'true') {
-                flipClock.classList.add('dark-mode');
-                document.body.style.backgroundColor = '#333333';
-                darkModeToggle.checked = true;
             }
             updateClock(selectedTimezone);
         });
