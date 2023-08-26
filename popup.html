@@ -1,1 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="popup.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.34/moment-timezone-with-data.min.js"></script>
+</head>
+<body>
+    <div class="timezone-select">
+        <label for="timezone-select"></label>
+        <select id="timezone-select"></select>
+    </div>
 
+    <div class="flip-clock">
+        <div class="digit">
+            <div class="card">
+                <div class="flip">
+                    <div class="side front">
+                        <span id="hours-tens"></span>
+                    </div>
+                    <div class="side back">
+                        <span id="hours-tens-back"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="digit">
+            <div class="card">
+                <div class="flip">
+                    <div class="side front">
+                        <span id="hours-ones"></span>
+                    </div>
+                    <div class="side back">
+                        <span id="hours-ones-back"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="colon">:</div>
+        <div class="digit">
+            <div class="card">
+                <div class="flip">
+                    <div class="side front">
+                        <span id="minutes-tens"></span>
+                    </div>
+                    <div class="side back">
+                        <span id="minutes-tens-back"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="digit">
+            <div class="card">
+                <div class="flip">
+                    <div class="side front">
+                        <span id="minutes-ones"></span>
+                    </div>
+                    <div class="side back">
+                        <span id="minutes-ones-back"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="colon">:</div>
+        <div class="digit">
+            <div class="card">
+                <div class="flip">
+                    <div class="side front">
+                        <span id="seconds-tens"></span>
+                    </div>
+                    <div class="side back">
+                        <span id="seconds-tens-back"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="digit">
+            <div class="card">
+                <div class="flip">
+                    <div class="side front">
+                        <span id="seconds-ones"></span>
+                    </div>
+                    <div class="side back">
+                        <span id="seconds-ones-back"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="popup.js">
+    </script>
+</body>
+</html>

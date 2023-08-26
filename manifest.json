@@ -1,1 +1,31 @@
-
+{
+    "manifest_version": 3,
+    "name": "Click Clock",
+    "version": "1.0",
+    "description": "A simple clock extension",
+    "permissions": [
+      "activeTab"
+    ],
+    "action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+        "16": "icon.ico",
+        "48": "icon.ico",
+        "128": "icon.ico"
+      }
+    },
+    "icons": {
+      "16": "icon.ico",
+      "48": "icon.ico",
+      "128": "icon.ico"
+    },
+    "browser_action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+        "16": "icon.ico",
+        "48": "icon.ico",
+        "128": "icon.ico"
+      }
+    }
+  }
+  
